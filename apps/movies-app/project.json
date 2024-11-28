@@ -17,7 +17,10 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/movies-app/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
-        "assets": ["apps/movies-app/src/favicon.ico", "apps/movies-app/src/assets"],
+        "assets": [
+          "apps/movies-app/src/favicon.ico",
+          "apps/movies-app/src/assets"
+        ],
         "stylePreprocessorOptions": {
           "includePaths": ["libs/shared/ui-theme/src/styles"]
         },
@@ -65,6 +68,9 @@
         "development": {
           "buildTarget": "movies-app:build:development"
         }
+      },
+      "options": {
+        "proxyConfig": "apps/movies-app/proxy.conf.json"
       },
       "defaultConfiguration": "development"
     },

@@ -15,7 +15,7 @@ export class SearchMovieService {
   searchMovies(query: string): Observable<MovieModel[]> {
     return this.httpClient
       .get<{ results: MovieModel[] }>(
-        `${this.env.tmdbBaseUrl}/3/search/movie`,
+        `${this.env.apiUrl}/api/search/movie`,
         {
           params: { query },
         }

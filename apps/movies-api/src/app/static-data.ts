@@ -1242,10 +1242,10 @@ export const GENRES_DATA = [
     "id": 80,
     "name": "Crime"
   },
-  {
-    "id": 99,
-    "name": "Documentary"
-  },
+  // {
+  //   "id": 99,
+  //   "name": "Documentary"
+  // },
   {
     "id": 18,
     "name": "Drama"
@@ -1266,14 +1266,14 @@ export const GENRES_DATA = [
     "id": 27,
     "name": "Horror"
   },
-  {
-    "id": 10402,
-    "name": "Music"
-  },
-  {
-    "id": 9648,
-    "name": "Mystery"
-  },
+  // {
+  //   "id": 10402,
+  //   "name": "Music"
+  // },
+  // {
+  //   "id": 9648,
+  //   "name": "Mystery"
+  // },
   {
     "id": 10749,
     "name": "Romance"
@@ -1282,10 +1282,10 @@ export const GENRES_DATA = [
     "id": 878,
     "name": "Science Fiction"
   },
-  {
-    "id": 10770,
-    "name": "TV Movie"
-  },
+  // {
+  //   "id": 10770,
+  //   "name": "TV Movie"
+  // },
   {
     "id": 53,
     "name": "Thriller"

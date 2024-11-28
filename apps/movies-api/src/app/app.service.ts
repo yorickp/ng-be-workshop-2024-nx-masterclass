@@ -28,6 +28,7 @@ export class AppService {
   }
 
   getMoviesByGenre(genre: TMDBMovieGenreModel['id']): TMDBMovieModel[] {
+
     return MOVIES_DATA
       .filter((movie) => movie.genre_ids.includes(genre))
       .sort((a, b) => a.popularity - b.popularity);
@@ -35,5 +36,12 @@ export class AppService {
 
   getMovieById(id: number): TMDBMovieModel {
     return MOVIES_DATA.find((movie) => movie.id === id);
+  }
+
+  getMovieByQuery(query: string): TMDBMovieModel[] {
+    if (!query) {
+      return [];
+    }
+    return MOVIES_DATA.filter((movie) => JSON.stringify(movie).includes(query));
   }
 }
