@@ -1,17 +1,23 @@
 import { Controller, Get } from '@nestjs/common';
 import { AppService } from './app.service';
+import { TMDBMovieCategory, TMDBMovieGenreModel, TMDBMovieModel } from '@ng-be-workshop/models';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
 
   @Get()
-  getMovies() {
-    return this.appService.getMovies();
+  getGenres(): TMDBMovieGenreModel[] {
+    return this.appService.getGenres();
   }
 
   @Get()
-  getMovie(id: string) {
-    return this.appService.getMovie(id);
+  getMovieById(id: number) {
+    return this.appService.getMovieById(id);
+  }
+
+  @Get()
+  getMovies(category?: TMDBMovieCategory): TMDBMovieModel[] {
+    return this.appService.getMovies(category);
   }
 }

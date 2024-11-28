@@ -4,7 +4,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { of, Subject, switchMap } from 'rxjs';
 
 import { MovieImagePipe } from '../movie-image.pipe';
-import { MovieModel } from '../movie-model';
+import { MovieModel } from '@ng-be-workshop/models';
 import { SearchMovieService } from '../search-movie.service';
 
 @Component({
@@ -22,8 +22,7 @@ import { SearchMovieService } from '../search-movie.service';
   imports: [NgIf, NgFor, AsyncPipe, MovieImagePipe],
 })
 export class MovieSearchControlComponent
-  implements ControlValueAccessor, AfterViewInit
-{
+  implements ControlValueAccessor, AfterViewInit {
   @ViewChild('searchInput')
   searchInput!: ElementRef<HTMLInputElement>;
 
@@ -35,12 +34,12 @@ export class MovieSearchControlComponent
     )
   );
 
-  onChange = (movie: MovieModel) => {};
-  onTouched = () => {};
+  onChange = (movie: MovieModel) => { };
+  onTouched = () => { };
 
   private movieCache!: MovieModel;
 
-  constructor(private searchMovieService: SearchMovieService) {}
+  constructor(private searchMovieService: SearchMovieService) { }
 
   ngAfterViewInit(): void {
     if (this.movieCache) {
@@ -71,5 +70,5 @@ export class MovieSearchControlComponent
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {}
+  setDisabledState(isDisabled: boolean): void { }
 }

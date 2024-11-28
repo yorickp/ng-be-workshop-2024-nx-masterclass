@@ -5,13 +5,12 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { Observable } from 'rxjs';
 
 import { TMDBMovieCreditsModel } from '../../shared/model/movie-credits.model';
-import { TMDBMovieDetailsModel } from '../../shared/model/movie-details.model';
+import { TMDBMovieDetailsModel, MovieModel } from '@ng-be-workshop/models';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
 import { MovieService } from '../movie.service';
 import { MovieImagePipe } from '../movie-image.pipe';
 import { MovieListComponent } from '../movie-list/movie-list.component';
-import { MovieModel } from '../movie-model';
 
 @Component({
   selector: 'movie-detail-page',
@@ -35,7 +34,7 @@ export class MovieDetailPageComponent implements OnInit {
   constructor(
     private movieService: MovieService,
     private activatedRoute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {

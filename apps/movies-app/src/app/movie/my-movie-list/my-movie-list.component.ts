@@ -12,7 +12,7 @@ import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { filter } from 'rxjs';
 
 import { MovieService } from '../movie.service';
-import { MovieModel } from '../movie-model';
+import { MovieModel } from '@ng-be-workshop/models';
 import { MovieSearchControlComponent } from '../movie-search-control/movie-search-control.component';
 
 @Component({
@@ -56,7 +56,7 @@ export class MyMovieListComponent implements OnInit {
 
   favoritesForm = new UntypedFormGroup({ favorites: this.favorites });
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService) { }
 
   ngOnInit(): void {
     this.favorites.valueChanges

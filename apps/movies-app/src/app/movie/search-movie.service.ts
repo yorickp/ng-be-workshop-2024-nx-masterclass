@@ -3,14 +3,14 @@ import { Inject, Injectable } from '@angular/core';
 import { map, Observable, tap } from 'rxjs';
 
 import { Environment, ENVIRONMENT_TOKEN } from '../shared/env.token';
-import { MovieModel } from './movie-model';
+import { MovieModel } from '@ng-be-workshop/models';
 
 @Injectable({ providedIn: 'root' })
 export class SearchMovieService {
   constructor(
     @Inject(ENVIRONMENT_TOKEN) private env: Environment,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   searchMovies(query: string): Observable<MovieModel[]> {
     return this.httpClient

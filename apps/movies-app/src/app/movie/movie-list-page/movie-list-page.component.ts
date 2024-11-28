@@ -1,9 +1,8 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ElementVisibilityDirective } from '../../shared/cdk/element-visibility/element-visibility.directive';
-import { TMDBMovieModel } from '../../shared/model/movie.model';
+import { TMDBMovieModel } from '@ng-be-workshop/models';
 import { MovieService } from '../movie.service';
 import { MovieListComponent } from '../movie-list/movie-list.component';
 
@@ -12,7 +11,7 @@ import { MovieListComponent } from '../movie-list/movie-list.component';
   templateUrl: './movie-list-page.component.html',
   styleUrls: ['./movie-list-page.component.scss'],
   standalone: true,
-  imports: [NgIf, MovieListComponent, ElementVisibilityDirective, AsyncPipe],
+  imports: [NgIf, MovieListComponent],
 })
 export class MovieListPageComponent {
   movies: TMDBMovieModel[] = [];

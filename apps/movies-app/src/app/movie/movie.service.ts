@@ -4,11 +4,8 @@ import { insert, remove } from '@rx-angular/cdk/transformations';
 import { map, Observable, tap, timer } from 'rxjs';
 
 import { Environment, ENVIRONMENT_TOKEN } from '../shared/env.token';
-import { TMDBMovieModel } from '../shared/model/movie.model';
+import { TMDBMovieModel, MovieModel, TMDBMovieDetailsModel, TMDBMovieGenreModel } from '@ng-be-workshop/models';
 import { TMDBMovieCreditsModel } from '../shared/model/movie-credits.model';
-import { TMDBMovieDetailsModel } from '../shared/model/movie-details.model';
-import { TMDBMovieGenreModel } from '../shared/model/movie-genre.model';
-import { MovieModel } from './movie-model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +14,7 @@ export class MovieService {
   constructor(
     @Inject(ENVIRONMENT_TOKEN) private env: Environment,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   getGenres(): Observable<TMDBMovieGenreModel[]> {
     return this.httpClient

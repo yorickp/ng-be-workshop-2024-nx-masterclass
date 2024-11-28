@@ -11,7 +11,7 @@ import {
 import { Router } from '@angular/router';
 
 import { MovieCardComponent } from '../movie-card/movie-card.component';
-import { MovieModel } from '../movie-model';
+import { MovieModel } from '@ng-be-workshop/models';
 
 @Component({
   selector: 'movie-list',
@@ -33,7 +33,7 @@ export class MovieListComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private router: Router
-  ) {}
+  ) { }
 
   navToDetail(movie: MovieModel): void {
     this.router.navigate(['/movie', movie.id]);
