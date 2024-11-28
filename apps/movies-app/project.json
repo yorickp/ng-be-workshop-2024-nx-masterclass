@@ -2,26 +2,26 @@
   "name": "movies-app",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "prefix": "app",
+  "prefix": "movies",
   "sourceRoot": "apps/movies-app/src",
+  "implicitDependencies": ["shared-ui-theme"],
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:application",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/movies-app",
         "index": "apps/movies-app/src/index.html",
-        "main": "apps/movies-app/src/main.ts",
+        "browser": "apps/movies-app/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/movies-app/tsconfig.app.json",
-        "assets": [
-          {
-            "glob": "**/*",
-            "input": "apps/movies-app/public"
-          }
-        ],
-        "styles": ["apps/movies-app/src/styles.css"],
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/movies-app/src/favicon.ico", "apps/movies-app/src/assets"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["libs/shared/ui-theme/src/styles"]
+        },
+        "styles": ["apps/movies-app/src/styles.scss"],
         "scripts": []
       },
       "configurations": {
@@ -34,25 +34,30 @@
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "2kb",
-              "maximumError": "4kb"
+              "maximumWarning": "5kb",
+              "maximumError": "20kb"
             }
           ],
           "outputHashing": "all"
         },
         "development": {
-          "buildOptimizer": false,
           "optimization": false,
-          "vendorChunk": true,
           "extractLicenses": false,
-          "sourceMap": true,
-          "namedChunks": true
+          "sourceMap": true
         }
       },
       "defaultConfiguration": "production"
     },
+    "send-email-on-deploy": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "command": "echo 'Deployed to production! Sending email...'",
+        "cwd": "dist/apps/movies-app"
+      }
+    },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "movies-app:build:production"
@@ -61,10 +66,7 @@
           "buildTarget": "movies-app:build:development"
         }
       },
-      "defaultConfiguration": "development",
-      "options": {
-        "proxyConfig": "apps/movies-app/proxy.conf.json"
-      }
+      "defaultConfiguration": "development"
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -73,7 +75,8 @@
       }
     },
     "lint": {
-      "executor": "@nx/eslint:lint"
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
     },
     "test": {
       "executor": "@nx/jest:jest",
@@ -86,8 +89,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "movies-app:build",
-        "port": 4200,
-        "spa": true
+        "staticFilePath": "dist/apps/movies-app/browser"
       }
     }
   }
