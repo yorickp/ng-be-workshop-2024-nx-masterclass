@@ -5,7 +5,6 @@ import { map, Observable, tap, timer } from 'rxjs';
 
 import { Environment, ENVIRONMENT_TOKEN } from '../shared/env.token';
 import { TMDBMovieModel, MovieModel, TMDBMovieDetailsModel, TMDBMovieGenreModel } from '@ng-be-workshop/models';
-import { TMDBMovieCreditsModel } from '../shared/model/movie-credits.model';
 
 @Injectable({
   providedIn: 'root',
@@ -41,18 +40,6 @@ export class MovieService {
         }
       )
       .pipe(map(({ results }) => results));
-  }
-
-  getMovieCredits(id: string): Observable<TMDBMovieCreditsModel> {
-    return this.httpClient.get<TMDBMovieCreditsModel>(
-      `${this.env.tmdbBaseUrl}/3/movie/${id}/credits`
-    );
-  }
-
-  getMovieRecommendations(id: string): Observable<{ results: MovieModel[] }> {
-    return this.httpClient.get<{ results: MovieModel[] }>(
-      `${this.env.tmdbBaseUrl}/3/movie/${id}/recommendations`
-    );
   }
 
   getMovieById(id: string): Observable<TMDBMovieDetailsModel> {

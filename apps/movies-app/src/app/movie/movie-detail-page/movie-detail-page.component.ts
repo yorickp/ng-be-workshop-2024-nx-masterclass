@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { Observable } from 'rxjs';
 
-import { TMDBMovieCreditsModel } from '../../shared/model/movie-credits.model';
 import { TMDBMovieDetailsModel, MovieModel } from '@ng-be-workshop/models';
 import { DetailGridComponent } from '../../ui/component/detail-grid/detail-grid.component';
 import { StarRatingComponent } from '../../ui/pattern/star-rating/star-rating.component';
@@ -28,7 +27,6 @@ import { MovieListComponent } from '../movie-list/movie-list.component';
 })
 export class MovieDetailPageComponent implements OnInit {
   recommendations$!: Observable<{ results: MovieModel[] }>;
-  credits$!: Observable<TMDBMovieCreditsModel>;
   movie$!: Observable<TMDBMovieDetailsModel>;
 
   constructor(
@@ -39,10 +37,6 @@ export class MovieDetailPageComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.movie$ = this.movieService.getMovieById(params['id']);
-      this.credits$ = this.movieService.getMovieCredits(params['id']);
-      this.recommendations$ = this.movieService.getMovieRecommendations(
-        params['id']
-      );
     });
   }
 }
