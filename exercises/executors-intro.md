@@ -29,7 +29,7 @@ This will start the app in development mode, and you can access it at http://loc
 
 You should see something like this:
 
-![image](./assets/empty-react-app.png)
+![image](./assets/empty-app.png)
 
 ## 2. Build the app
 
