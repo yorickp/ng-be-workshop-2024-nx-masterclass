@@ -1,27 +1,40 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
 import { AppComponent } from './app.component';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { RouterModule } from '@angular/router';
+import { AppShellComponent } from './app-shell/app-shell.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, NxWelcomeComponent, RouterModule.forRoot([])],
-    }).compileComponents();
+      imports: [AppComponent, RouterTestingModule],
+    })
+      .overrideComponent(AppComponent, {
+        remove: { imports: [AppShellComponent] },
+        add: { imports: [MockAppShellComponent] },
+      })
+      .compileComponents();
   });
 
-  it('should render title', () => {
+  it('should include app-shell', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain(
-      'Welcome movies-app'
-    );
+    expect(compiled.innerHTML).toContain('app-shell');
   });
 
-  it(`should have as title 'movies-app'`, () => {
+  it(`should include router-outlet`, () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('movies-app');
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.innerHTML).toContain('router-outlet');
   });
 });
+
+@Component({
+  selector: 'app-shell',
+  template: '<ng-content />',
+  standalone: true,
+})
+class MockAppShellComponent {}
