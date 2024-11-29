@@ -40,8 +40,8 @@ export class AppService {
 
   getMovieByQuery(query: string): TMDBMovieModel[] {
     if (!query) {
-      return [];
+      return MOVIES_DATA;
     }
-    return MOVIES_DATA.filter((movie) => JSON.stringify(movie).includes(query));
+    return MOVIES_DATA.filter((movie) => JSON.stringify(movie).toLowerCase().includes(query.toLowerCase()));
   }
 }
