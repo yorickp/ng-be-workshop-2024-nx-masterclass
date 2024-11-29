@@ -18,7 +18,7 @@ export class MovieService {
   constructor(
     @Inject(ENVIRONMENT_TOKEN) private env: Environment,
     private httpClient: HttpClient
-  ) {}
+  ) { }
 
   getGenres(): Observable<TMDBMovieGenreModel[]> {
     return this.httpClient
@@ -65,8 +65,6 @@ export class MovieService {
 
   getMovieList(
     category: string,
-    page = 1,
-    sortBy = 'popularity.desc'
   ): Observable<TMDBMovieModel[]> {
     return this.httpClient
       .get<TMDBMovieModel[]>(`${this.env.apiUrl}/api/movies/${category}`)

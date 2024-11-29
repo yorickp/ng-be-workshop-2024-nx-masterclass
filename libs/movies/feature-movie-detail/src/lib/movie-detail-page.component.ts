@@ -1,12 +1,10 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
 import { MovieService } from '@nx-workshop/movies/data-access-movies';
 import { Observable } from 'rxjs';
 import {
-  MovieModel,
-  TMDBMovieCreditsModel,
   TMDBMovieDetailsModel,
 } from '@nx-workshop/shared/models';
 import { StarRatingComponent } from '@nx-workshop/shared/ui-star-rating';
@@ -30,22 +28,21 @@ import { MovieListComponent } from '@nx-workshop/movies/ui-movie-list';
   ],
 })
 export class MovieDetailPageComponent implements OnInit {
-  recommendations$!: Observable<{ results: MovieModel[] }>;
-  credits$!: Observable<TMDBMovieCreditsModel>;
   movie$!: Observable<TMDBMovieDetailsModel>;
 
   constructor(
     private movieService: MovieService,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    private location: Location
+  ) { }
+
+  goBack() {
+    this.location.back();
+  };
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.movie$ = this.movieService.getMovieById(params['id']);
-      this.credits$ = this.movieService.getMovieCredits(params['id']);
-      this.recommendations$ = this.movieService.getMovieRecommendations(
-        params['id']
-      );
     });
   }
 }
