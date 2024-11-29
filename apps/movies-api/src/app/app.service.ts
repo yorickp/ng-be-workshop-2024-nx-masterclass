@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TMDBMovieModel, TMDBMovieGenreModel, TMDBMovieCategory } from '@nx-workshop/models';
+import { TMDBMovieModel, TMDBMovieGenreModel, TMDBMovieCategory, TMDBMovieDetailsModel } from '@nx-workshop/models';
 import { GENRES_DATA, MOVIES_DATA } from './static-data';
 
 @Injectable()
@@ -28,14 +28,21 @@ export class AppService {
   }
 
   getMoviesByGenre(genre: TMDBMovieGenreModel['id']): TMDBMovieModel[] {
-
     return MOVIES_DATA
       .filter((movie) => movie.genre_ids.includes(genre))
       .sort((a, b) => a.popularity - b.popularity);
   }
 
-  getMovieById(id: number): TMDBMovieModel {
-    return MOVIES_DATA.find((movie) => movie.id === id);
+  getMovieById(id: number): TMDBMovieDetailsModel {
+    const movie = MOVIES_DATA.find((movie) => movie.id === id);
+    if (!movie) {
+      return undefined;
+    }
+    const { genre_ids, ...rest } = movie;
+    return {
+      ...rest,
+      genres: genre_ids.map((genreId) => GENRES_DATA.find((genre) => genre.id === genreId)),
+    };
   }
 
   getMovieByQuery(query: string): TMDBMovieModel[] {

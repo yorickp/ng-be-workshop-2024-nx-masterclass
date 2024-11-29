@@ -11,7 +11,17 @@
     <div detailGridDescription>
       <header>
         <h1>{{ movie.title }}</h1>
-        <h2>{{ movie.tagline }}</h2>
+        <h3>
+          @if (movie.popular) {
+            <span class="movie-detail--label">Popular</span>
+          }
+          @if (movie.topRated) {
+            <span class="movie-detail--label">Top Rated</span>
+          }
+          @if (movie.upcoming) {
+            <span class="movie-detail--label">Upcoming</span>
+          }
+        </h3>
       </header>
       <section class="movie-detail--basic-infos">
         <ui-star-rating

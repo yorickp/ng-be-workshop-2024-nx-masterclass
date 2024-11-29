@@ -1270,10 +1270,10 @@ export const GENRES_DATA = [
   //   "id": 10402,
   //   "name": "Music"
   // },
-  // {
-  //   "id": 9648,
-  //   "name": "Mystery"
-  // },
+  {
+    "id": 9648,
+    "name": "Mystery"
+  },
   {
     "id": 10749,
     "name": "Romance"

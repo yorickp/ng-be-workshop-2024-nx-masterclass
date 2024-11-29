@@ -123,3 +123,15 @@
     margin: 0 auto;
   }
 }
+
+.movie-detail--label {
+  margin-top: 2rem;
+  padding: 2px 4px;
+  font-weight: normal;
+  font-size: var(--text-md);
+  color: var(--palette-primary-main);
+  border: 1px solid rgba(20, 184, 162, 0.5);
+  border-radius: var(--theme-borderRadius-m);
+  background: var(--palette-primary-main);
+  color: var(--palette-primary-contrast-text);
+}
