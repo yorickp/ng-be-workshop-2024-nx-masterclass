@@ -1,6 +1,6 @@
 import { Test } from '@nestjs/testing';
 import { AppService } from './app.service';
-import { STATIC_DATA } from './static-data';
+import { MOVIES_DATA } from './static-data';
 
 describe('AppService', () => {
   let service: AppService;
@@ -15,7 +15,9 @@ describe('AppService', () => {
 
   describe('getMovies', () => {
     it('should return static data', () => {
-      expect(service.getMovies()).toEqual(STATIC_DATA);
+      expect(service.getMovies()).toEqual(
+        MOVIES_DATA.sort((a, b) => a.popularity - b.popularity)
+      );
     });
   });
 });

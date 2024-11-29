@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { STATIC_DATA } from './static-data';
+import { MOVIES_DATA } from './static-data';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -16,7 +16,9 @@ describe('AppController', () => {
   describe('getData', () => {
     it('should return static data', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getMovies()).toEqual(STATIC_DATA);
+      expect(appController.getMovies()).toEqual(
+        MOVIES_DATA.sort((a, b) => a.popularity - b.popularity)
+      );
     });
   });
 });
