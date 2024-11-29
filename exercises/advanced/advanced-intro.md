@@ -62,4 +62,5 @@ Follow these simple rules for the best results:
   - For more details read our [Code of Conduct](code-of-conduct.md)
 
 ## Happy learning!
-...
+
+## [➡️ Next lab ➡️](./custom-plugins.md)

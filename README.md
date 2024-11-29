@@ -53,10 +53,10 @@
 
 | `Advanced course` |
 | - |
-| [📖 Course introduction](./exercises/advanced-intro.md) |
-| 📖 Automate your workspace with local plugins |
+| [📖 Course introduction](./exercises/advanced/advanced-intro.md) |
+| 📖 [Automate your workspace with local plugins and custom generators](./exercises/advanced/custom-plugins.md) |
 | `☕ Break` |
-| 📖 Learn how to write and test your own generators |
+| 📖 Learn how to write and test your complex generators |
 | 📖 Write advanced deployment targets using a custom executor |
 | `☕ Break` |
 | 📖 Set up CI for your pull requests, connect to Nx Cloud, enable remote caching and the GitHub integration |
