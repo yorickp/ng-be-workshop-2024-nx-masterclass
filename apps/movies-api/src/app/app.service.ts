@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TMDBMovieModel, TMDBMovieGenreModel, TMDBMovieCategory } from '@ng-be-workshop/models';
+import { TMDBMovieModel, TMDBMovieGenreModel, TMDBMovieCategory } from '@nx-workshop/models';
 import { GENRES_DATA, MOVIES_DATA } from './static-data';
 
 @Injectable()

@@ -8,13 +8,15 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { FastSvgComponent } from '@push-based/ngx-fast-svg';
+import { MovieService } from '@nx-workshop/movies/data-access-movies';
 import { distinctUntilChanged, filter, map } from 'rxjs';
+import { SideDrawerComponent } from '@nx-workshop/shared/ui';
 
-import { MovieService } from '../movie/movie.service';
-import { DarkModeToggleComponent } from '../ui/component/dark-mode-toggle/dark-mode-toggle.component';
-import { HamburgerButtonComponent } from '../ui/component/hamburger-button/hamburger-button.component';
-import { SearchBarComponent } from '../ui/component/search-bar/search-bar.component';
-import { SideDrawerComponent } from '../ui/component/side-drawer/side-drawer.component';
+import {
+  DarkModeToggleComponent,
+  HamburgerButtonComponent,
+  SearchBarComponent,
+} from '@nx-workshop/shared/ui';
 
 @Component({
   selector: 'app-shell',
@@ -47,16 +49,13 @@ export class AppShellComponent implements OnInit {
   }
   readonly genres$ = this.movieService.getGenres();
 
-  constructor(
-    private movieService: MovieService,
-    private router: Router
-  ) {}
+  constructor(private movieService: MovieService, private router: Router) {}
 
   ngOnInit() {
     this.router.events
       .pipe(
-        filter(e => e instanceof NavigationEnd && this.sideDrawerOpen),
-        map(e => (e as NavigationEnd).urlAfterRedirects),
+        filter((e) => e instanceof NavigationEnd && this.sideDrawerOpen),
+        map((e) => (e as NavigationEnd).urlAfterRedirects),
         distinctUntilChanged()
       )
       .subscribe(() => {
