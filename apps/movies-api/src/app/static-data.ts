@@ -1,4 +1,4 @@
-import { TMDBMovieModel } from '@ng-be-workshop/models';
+import { TMDBMovieModel } from '@nx-workshop/models';
 
 const popularMovies = [
   {

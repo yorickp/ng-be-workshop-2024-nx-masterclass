@@ -4,35 +4,35 @@ export const routes: Routes = [
   {
     path: 'list/:category',
     loadComponent: () =>
-      import('./movie/movie-list-page/movie-list-page.component').then(
+      import('@nx-workshop/movies/feature-movie-list').then(
         m => m.MovieListPageComponent
       ),
   },
   {
     path: 'list/genre/:id',
     loadComponent: () =>
-      import('./movie/movie-list-page/movie-list-page.component').then(
+      import('@nx-workshop/movies/feature-movie-list').then(
         m => m.MovieListPageComponent
       ),
   },
   {
     path: 'movie/:id',
     loadComponent: () =>
-      import('./movie/movie-detail-page/movie-detail-page.component').then(
+      import('@nx-workshop/movies/feature-movie-detail').then(
         m => m.MovieDetailPageComponent
       ),
   },
   {
     path: 'search/:query',
     loadComponent: () =>
-      import('./movie/movie-search-page/movie-search-page.component').then(
+      import('@nx-workshop/movies/feature-movie-search').then(
         m => m.MovieSearchPageComponent
       ),
   },
   {
     path: 'my-movies',
     loadComponent: () =>
-      import('./movie/my-movie-list/my-movie-list.component').then(
+      import('@nx-workshop/movies/feature-my-movie-list').then(
         m => m.MyMovieListComponent
       ),
   },
@@ -44,7 +44,7 @@ export const routes: Routes = [
   {
     path: '**',
     loadComponent: () =>
-      import('./not-found-page/not-found-page.component').then(
+      import('@nx-workshop/shared/feature-not-found-page').then(
         m => m.NotFoundPageComponent
       ),
   },

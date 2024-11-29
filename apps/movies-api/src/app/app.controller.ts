@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { TMDBMovieCategory, TMDBMovieGenreModel, TMDBMovieModel } from '@ng-be-workshop/models';
+import { TMDBMovieCategory, TMDBMovieGenreModel, TMDBMovieModel } from '@nx-workshop/models';
 
 @Controller()
 export class AppController {
