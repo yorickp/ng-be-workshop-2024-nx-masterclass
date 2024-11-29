@@ -39,8 +39,7 @@ type UiActions = {
 @Component({
   selector: 'ui-search-bar',
   template: `
-    // eslint-disable-next-line
-    @angular-eslint/template/click-events-have-key-events
+    <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
     <form
       (submit)="ui.formSubmit($event)"
       #form
