@@ -1,3 +1,0 @@
-# Excercise: Advanced workshop intro
-
-...

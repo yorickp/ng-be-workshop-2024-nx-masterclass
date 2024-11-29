@@ -1,6 +1,17 @@
-# ✨ Nx Advanced Workshop ✨ 
+<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="100"></a>
+<h1 align="center">✨ Nx Masterclass Workshop ✨ </h2>
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+> In this workshop we will be extending the Nx workspace containing two applications and several feature and utility libraries that represent a simple IMDB clone.
+>
+> Our frontend application is built with Angular and our backend is built with NestJS but we will be focusing on the Nx itself rather than the actual codebase.
+>
+> Feel free to change the style or business logic of those apps prior to workshop to your liking.
+> 
+> This is what we're working with:
+>
+> <img src="exercises/assets/movie-app.webp" alt="Movies app">
+
+---
 
 ## Setup
 ### Prerequisites
@@ -18,40 +29,46 @@
 
 - Fork this repo
 - Clone your fork and install dependencies
-```bash
-git clone https://github.com/{your name}/ng-be-workshop-2024.git
+  ```bash
+  git clone https://github.com/{your name}/ng-be-workshop-2024.git
 
-npm install
-# optionally use `yarn` or `pnpm`
-```
+  npm install
+  # optionally use `yarn` or `pnpm`
+  ```
 
 ### Get acquainted with the application
 
-- Run the application
-```
-npx nx serve movies-app
-```
+- Serve both frontend and the backend
+  ```
+  npx nx run-many -t serve
+  ```
+- Open [localhost:4200](http://localhost:4200) in your browser and click around
+- Bonus if you spot some missing or broken functionality and you fix them
 - Check the `apps` and `libs` folder
 - Run `npx nx graph` to see how architecture looks like
 
-## Labs
+---
+
+## Let's get started
 
 | `Advanced course` |
 | - |
-| [Introduction](./exercises/advanced-intro.md) |
-| Automate your workspace with local plugins |
+| [📖 Course introduction](./exercises/advanced-intro.md) |
+| 📖 Automate your workspace with local plugins |
 | `☕ Break` |
-| Learn how to write and test your own generators |
-| Write advanced deployment targets using a custom executor |
+| 📖 Learn how to write and test your own generators |
+| 📖 Write advanced deployment targets using a custom executor |
 | `☕ Break` |
-| Set up CI for your pull requests, connect to Nx Cloud, enable remote caching and the GitHub integration |
-| Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs |
-| Set up continuous deployment pipeline for affected applications |
+| 📖 Set up CI for your pull requests, connect to Nx Cloud, enable remote caching and the GitHub integration |
+| 📖 Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs |
+| 📖 Set up continuous deployment pipeline for affected applications |
 | `☕ Break` |
-| Configure task distribution on CI with Nx Agents, including exploring custom launch templates and dynamic agent scaling. |
-| Leverage Nx Crystal plugins and Nx Atomizer to configure task splitting for improving CI distribution and speed |
-| Explore flaky task detection |
+| 📖 Configure task distribution on CI with Nx Agents, including exploring custom launch templates and dynamic agent scaling. |
+| 📖 Leverage Nx Crystal plugins and Nx Atomizer to configure task splitting for improving CI distribution and speed |
+| 📖 Explore flaky task detection |
 | `Bonus:` Nx import, CodeOwners, and Conformance |
+
+---
 
 ## Extras
 
