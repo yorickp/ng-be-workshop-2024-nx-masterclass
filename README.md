@@ -56,8 +56,8 @@
 | [📖 Course introduction](./exercises/advanced/advanced-intro.md) |
 | 📖 [Automate your workspace with local plugins and custom generators](./exercises/advanced/custom-plugins.md) |
 | `☕ Break` |
-| 📖 Learn how to write and test your complex generators |
-| 📖 Write advanced deployment targets using a custom executor |
+| 📖 [Learn how to write and test your complex generators](./exercises/advanced/complex-generators.md) |
+| 📖 [Write advanced deployment targets using a custom executor](./exercises/advanced/deploy-target-and-custom-executor.md) |
 | `☕ Break` |
 | 📖 Set up CI for your pull requests, connect to Nx Cloud, enable remote caching and the GitHub integration |
 | 📖 Nx Caching deep dive: Strategies for debugging cache misses, optimization strategies, and fine-tuning cache inputs and outputs |

@@ -21,7 +21,7 @@ Add the `@nx/plugin` plugin with `nx add`.
     ```
 </details>
 
-## 2. Generate Plugin
+### 2. Generate Plugin
 Generate a new plugin called `internal-plugin` in the `libs` directory. This step initializes the necessary setup for your custom generator.
 
 <details>
@@ -32,7 +32,7 @@ Generate a new plugin called `internal-plugin` in the `libs` directory. This ste
     ```
 </details>
 
-## 3. Generate a generator
+### 3. Generate a generator
 Use the `@nx/plugin:generator` generator to generate a new generator called `util-lib`. Inspect the files that got generated and then commit everything. 
 
 <details>
@@ -44,12 +44,12 @@ Use the `@nx/plugin:generator` generator to generate a new generator called `uti
 
 ⚠️&nbsp;&nbsp;Commit your changes! 
 
-## 4. Run your generator
+### 4. Run your generator
 Try to run your generator to see what changes are being made (you can append `--dry-run` to avoid reverting using Git).
 
 ⚠️&nbsp;&nbsp;The code we generated creates a very bare-bones new library. You can use Git to undo those changes (hence why it's recommended to commit before running a generator).
 
-## 5. Extend other generators
+### 5. Extend other generators
 We can call other generators inside of our custom generator. Import the `@nx/js:library` generator and call it inside of the default exported function of `libs/internal-plugin/src/generators/util-lib/generator.ts`
 
 <details>
@@ -66,10 +66,10 @@ export default async function (tree: Tree, schema: UtilLibGeneratorSchema) {
 
 </details>
 
-## 6. Console log the properties
+### 6. Console log the properties
 In `libs/internal-plugin/src/generators/util-lib/generator.ts` try to make it `console.log()` the value of the `--name` property you passed to it (can use `--dry-run` again to test it)
 
-## 7. Add prefix
+### 7. Add prefix
 The generator should prefix any name you give to your lib with `util-`. For example:
 
 - `nx generate @nx-workshop/internal-plugin:util-lib dates`
@@ -77,12 +77,13 @@ The generator should prefix any name you give to your lib with `util-`. For exam
 
 ⚠️&nbsp;&nbsp;You can keep trying out your changes safely with the `--dry-run` flag.️
 
-## 7. Add directory
+### 8. Add directory
 
 Add a new property to its schema called `directory`. It should have only 3 possible values:
 `"movies", "api", "shared"`. If you do not pass `--directory` as an option when invoking the
 schema it should prompt the user to select from the 3 different values (similar to when you got
-asked about which bundler to use when creating libs). The generator should generate the lib in the directory you pass to it.
+asked about which bundler to use when creating libs). The generator should generate the lib in the directory you pass to it:
+- `movies`-> `libs/movies/{lib name}`
 
 <details>
 <summary>🐳&nbsp;&nbsp;Hint</summary>
@@ -92,7 +93,7 @@ asked about which bundler to use when creating libs). The generator should gener
 </details>
 <br />
 
-## 8. Add tags
+### 9. Add tags
 Because it's a `util` lib, it should automatically be generated with the `type:util` tags. We also need to add `scope` tag to it. We can use the `directory` value for this, since it signifies our scope e.g. `scope:movies`.
 
 <details>
@@ -106,7 +107,7 @@ for possible options you can pass to it.
 ⚠️&nbsp;&nbsp;Before testing your changes, remember to commit them, in case you need to revert
     locally generated files again.
 
-## 9. Add a bit of logic
+### 10. Add a bit of logic
 Let's add some functionality to the lib you just created:
 
 - In `libs/api/util-notifications/src/lib/api-util-notifications.ts`
@@ -124,7 +125,39 @@ Now try to import the above function in `apps/movies-api/src/main.ts`
 Try to import it in `apps/movies-app/src/app/app.component.ts`
 - It should fail because it's not within the same scope
 
-## 10. Conclusion
+### 11. `✨ BONUS` fixing tests
+A `generator.spec.ts` file was created when we ran our generator. Try writing some meaningful tests for this generator. Use `createTreeWithEmptyWorkspace` from `@nx/devkit/testing` to generate in memory Tree and `readProjectConfiguration` from `@nx/devkit` to parse the contents of your project configuration.
+
+<details>
+<summary>🐳&nbsp;&nbsp;Solution</summary>
+
+```typescript
+import { createTreeWithEmptyWorkspace } from '@nx/devkit/testing';
+import { Tree, readProjectConfiguration } from '@nx/devkit';
+
+import generator from './generator';
+import { UtilLibGeneratorSchema } from './schema';
+
+describe('util-lib generator', () => {
+  let appTree: Tree;
+  const options: UtilLibGeneratorSchema = { name: 'foo', directory: 'movies' };
+
+  beforeEach(() => {
+    appTree = createTreeWithEmptyWorkspace();
+  });
+
+  it('should add util to the name and add appropriate tags', async () => {
+    await generator(appTree, options);
+    const config = readProjectConfiguration(appTree, 'movies-util-foo');
+    expect(config).toBeDefined();
+    expect(config.tags).toEqual(['type:util', 'scope:movies']);
+  });
+});
+```
+
+</details>
+
+### 12. Conclusion
 
 You learned how to generate plugis and create your own generators. In the next step we will learn how to build even more complex generators.
 
