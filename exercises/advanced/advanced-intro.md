@@ -48,6 +48,8 @@ The lab might also have this helpful sections:
   - While the _mighty narwhal_ is away on secret missions, you will occasionally see his assistant, **Ron The Whale** offering helpful hints to the different exercises. Please use these if you get stuck.
 - ⚠️&nbsp;&nbsp;**Important information**
   - Sometimes there are hidden gotchas or common mistakes. Read this before running the step
+- ❓&nbsp;&nbsp;**Additional learnings**
+  - Sometimes there might be additional learnings included that are not strictly related to Nx itself
 
 ## Rules
 
