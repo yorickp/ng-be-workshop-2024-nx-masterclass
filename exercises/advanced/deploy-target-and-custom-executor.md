@@ -392,4 +392,4 @@ Add environment file replacement in `apps/movies-app/project.json`:
 
 Deploy both frontend and backend and verify whether the movies are shown this time.
 
-## [➡️ Next lab ➡️](./)
+## [➡️ Next lab ➡️](./setup-ci-and-connect-nx-cloud.md)
