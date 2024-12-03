@@ -83,13 +83,14 @@ env:
 
 The `surge` has been added to our NPM dependencies and will be available to the CI processes, but `Fly.io` is a standalone CLI tool. We need to add it to our pipeline. Since we want to use `deploy` only on the `main` branch we can install the tool only if we are on the `main` branch. Make sure it's added before the `nx affected` command.
 
-Use `curl -L https://fly.io/install.sh | sh` to install it and `github.ref == 'refs/heads/main'` to limit it to main branch only.
+Use `superfly/flyctl-actions/setup-flyctl@master` to install it and `github.ref == 'refs/heads/main'` to limit it to main branch only.
 
 <details>
 <summary>🐳&nbsp;&nbsp;Solution</summary>
 
 ```yaml
-- run: curl -L https://fly.io/install.sh | sh
+- name: Setup flyctl
+  uses: superfly/flyctl-actions/setup-flyctl@master
   if: github.ref == 'refs/heads/main'
 ```
 </details>
@@ -164,7 +165,8 @@ jobs:
       - run: npx playwright install --with-deps
       - uses: nrwl/nx-set-shas@v4
 
-      - run: curl -L https://fly.io/install.sh | sh
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
         if: github.ref == 'refs/heads/main'
 
       - run: npx nx affected -t lint test build e2e deploy
