@@ -1,8 +1,9 @@
-# `📖 Excercise:` Advanced workshop intro
+# `📖 Exercise:` Advanced workshop intro
 
 Welcome to our Advanced Nx Workshop! We are happy to have you joining us on this journey.
 
 Today you will learn how to:
+
 - Create your own `generators` and `executors`
 - Use your `executors` to enable `continuous deployment`
 - Enable `Nx Cloud` to benefit from the `cache replay` and `distribution`
@@ -18,13 +19,16 @@ If you haven't run through the setup steps please do them now:
 
 - Fork this repo
 - Clone your fork and install dependencies
+
   ```bash
   git clone https://github.com/{your name}/ng-be-workshop-2024.git
 
   npm install
   # optionally use `yarn` or `pnpm`
   ```
+
 - If you cloned the repo earlier, ensure it's updated with upstream:
+
   ```bash
   git remote add upstream git@github.com:nrwl/ng-be-workshop-2024.git
   git fetch upstream main
@@ -43,6 +47,7 @@ If you haven't run through the setup steps please do them now:
 ## How the labs work
 
 Each lab will have the following sections:
+
 - 📚&nbsp;&nbsp;**Learning outcomes**
   - A summary of the most important things you'll learn in that lab
 - 🏋️‍♀️&nbsp;&nbsp;**Steps**
@@ -60,6 +65,7 @@ The lab might also have this helpful sections:
 ## Rules
 
 Follow these simple rules for the best results:
+
 - 💬&nbsp;&nbsp;Questions are always welcome
   - But be mindful of others
   - If the question is unrelated to the topic, use the breaks to ask it

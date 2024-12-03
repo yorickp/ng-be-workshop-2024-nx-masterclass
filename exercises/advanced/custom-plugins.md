@@ -1,4 +1,4 @@
-# `📖 Excercise:` Local plugins and custom generators
+# `📖 Exercise:` Local plugins and custom generators
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
 

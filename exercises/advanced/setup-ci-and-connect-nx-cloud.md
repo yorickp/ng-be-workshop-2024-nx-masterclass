@@ -1,12 +1,14 @@
-# `📖 Excercise:` Setup CI with Nx Cloud's remote caching
+# `📖 Exercise:` Setup CI with Nx Cloud's remote caching
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
+
 - Learn how to generate CI pipeline configuration
 - Learn what Nx Cloud is and how it is used for remote caching
 
 ## 🏋️‍♀️&nbsp;&nbsp;Steps:
 
 ### 1. Prepare repo for setup
+
 Before we can begin working with CI setup, let's make sure our repository is pushed to GitHub.
 
 ```bash
@@ -16,12 +18,13 @@ git push origin main
 ```
 
 ### 2. Generate CI configuration
+
 We will use the `ci-workflow` generator to generate a new configuration. Choose `github` when asked to the provider:
 
 ```bash
  NX  Generating @nx/workspace:ci-workflow
 
-? What is your target CI provider? … 
+? What is your target CI provider? …
 github
 circleci
 azure
@@ -29,11 +32,12 @@ bitbucket-pipelines
 gitlab
 ```
 
-Check the modified and created files to understand what was added. Since any potential change to our pipeline can break the cache we want to have this file be part of our inputs. 
+Check the modified and created files to understand what was added. Since any potential change to our pipeline can break the cache we want to have this file be part of our inputs.
 
 > ⚠️&nbsp;&nbsp;Don't worry if you don't understand what inputs are and how they affect the tasks. We'll get to it in our next lab.
 
 ### 3. Make changes to trigger pipeline
+
 Commit changes to main branch and then create a new branch.
 
 <details>
@@ -44,6 +48,7 @@ git add . && git commit -m "add ci"
 git push origin main
 git checkout -b dynamic-title
 ```
+
 </details>
 
 Right now our application has hardcoded title `HubMovies`. Let's make this controllable via code. In your `apps/movies-app/src/app/app.routes.ts` add `title` property to each route e.g.:
@@ -62,6 +67,7 @@ Right now our application has hardcoded title `HubMovies`. Let's make this contr
 As a `✨ BONUS` you can implement your own [Custom Title Strategy](https://angular.dev/guide/routing/common-router-tasks#setting-the-page-title) to make it more dynamic.
 
 ### 4. Create pull request and monitor changes
+
 Commit all your changes and push them to the new branch. Now go to GitHub and make a Pull Request to `main`.
 
 Go to `Actions` tab and click on the new running action.
@@ -74,7 +80,9 @@ you information in form of a link that points to the nx cloud dashboard, represe
 There you can inspect the outcome of tasks. You see the stdout of the respective command.
 
 ### 5. Calculating the base for your affected command
+
 Notice how one of the steps is `Run nrwl/nx-set-shas...`. Our affected command needs a starting and ending point. Nx will then collect all file changes between those two point in the Git history and use it to calculate affected graph. By default thes values are set to:
+
 - `base=HEAD~1` - the previous commit
 - `head=HEAD` - the current commit
 
@@ -87,13 +95,14 @@ The `nx-set-shas` solves that by calculating the last successful pipeline run an
 Let's make sure our PR is successful and merge it back to main.
 
 ### 6. Connect Nx Cloud
+
 Let's pull the latest changes from our repo to be in sync with GitHub. In this step we will connect the Nx Cloud.
 
 ```bash
 npx nx connect
 ```
 
-This command will automatically open a tab in your browser. 
+This command will automatically open a tab in your browser.
 
 ![Nx Cloud connect](../assets/connect-nx-cloud.png)
 

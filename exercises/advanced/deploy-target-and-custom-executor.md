@@ -1,4 +1,4 @@
-# `📖 Excercise:` Deploy targets and custom executors
+# `📖 Exercise:` Deploy targets and custom executors
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
 

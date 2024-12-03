@@ -1,6 +1,7 @@
-# `📖 Excercise:` Continuous deployment for affected projects
+# `📖 Exercise:` Continuous deployment for affected projects
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
+
 - Learn how to configure continuous deployments
 - Learn how to expose custom secrets on GitHub to your CD processes
 - Learn when to enable deployment caching and how to control it
@@ -8,6 +9,7 @@
 ## 🏋️‍♀️&nbsp;&nbsp;Steps:
 
 ### 1. Optimizing inputs for deploy target
+
 In the previous lab we learned how to configure the inputs and outputs to better control when is our task's cache being busted.
 Both of our deploy commands are NOT using first-party `@nx/...` executors for invoking the commands, so any changes to the installed dependencies/lockfile will have their cache busted.
 
@@ -19,8 +21,8 @@ To avoid that, we need to limit the list of packages whose changes can influence
   "deploy": {
     "dependsOn": ["build"],
     "inputs": [
-      "production", 
-      "^production", 
+      "production",
+      "^production",
       { "externalDependencies": ["nx" ]}
     ],
   },
@@ -31,6 +33,7 @@ To avoid that, we need to limit the list of packages whose changes can influence
 Since we specified `dependsOn` in our target defaults, we can go ahead and remove it from our `project.json` files. Notice how `deploy` now also depends on `production` instead of `default`. We don't want e.g. changes to unit tests to trigger the deployment.
 
 Both of these also have their own set of dependencies:
+
 - Surge deployment depends on the `surge` package
 - Fly deployment depends on the `fly` CLIs version
 
@@ -42,6 +45,7 @@ Let's add those respectively to their `project.json` files.
 <summary>🐳&nbsp;&nbsp;Hint</summary>
 
 // apps/movies-app/project.json
+
 ```jsonc
 "deploy": {
   // ...
@@ -51,6 +55,7 @@ Let's add those respectively to their `project.json` files.
 ```
 
 // apps/movies-api/project.json
+
 ```jsonc
 "deploy": {
   // ...
@@ -58,9 +63,11 @@ Let's add those respectively to their `project.json` files.
   // ...
 }
 ```
+
 </details>
 
 ### 2. Providing the environment variables to pipeline
+
 Remeber how we created those `.local.env.` files? These unfortunately stay on your machine and are not pushed to CI, so we need to feed our pipeline with those values.
 
 1. Go to your GitHub workshop repo
@@ -93,11 +100,13 @@ Use `superfly/flyctl-actions/setup-flyctl@master` to install it and `github.ref 
   uses: superfly/flyctl-actions/setup-flyctl@master
   if: github.ref == 'refs/heads/main'
 ```
+
 </details>
 
 ### 4. Add deploy to nx affected
 
 Similarly how we limited `fly.io` CLI install to `main` branch runs, we also want to include `deploy` target to `nx affected` when that command is running on the main branch. We can use the same `ref` condition to limit the invocation of the pipeline step. We want to have two `nx affected ...` commands:
+
 - One that includes `deploy` and ONLY runs on `main`
 - One that excludes `deploy` and DOESN'T run on `main`
 
@@ -111,6 +120,7 @@ Similarly how we limited `fly.io` CLI install to `main` branch runs, we also wan
 - run: npx nx affected -t lint test build e2e
   if: github.ref != 'refs/heads/main'
 ```
+
 </details>
 
 ### 5. Final checks and tests
@@ -175,6 +185,7 @@ jobs:
       - run: npx nx affected -t lint test build e2e
         if: github.ref != 'refs/heads/main'
 ```
+
 </details>
 
 ### 6. `✨ BONUS` Should deployment be cacheable?
@@ -182,15 +193,18 @@ jobs:
 This is a very opinionated question and there is no right/wrong answer.
 
 Why would we want `deploy` to be cacheable?
+
 - The `nx affected ...` marks project as affected if any file belonging to that project changes even if it's unrelated to production bundle. Caching can limit the scope of it
 - Caching is mandatory if we want to distribute `deploy` tasks across multiple agents (more on distribution in the next lab)
 - Restarting the pipeline should not re-deploy already deployed projects
 
 Why would we want `deploy` NOT to be cacheable?
+
 - Deploy targets depend on external services which we cannot control. If something goes wrong we might end up with cache created while deployment failed (in this case both `surge` and `fly` should not return status 0 if their deployment fails). In order to fix that we need to bust the cache of those projects which would also restart `build` and other tasks.
 - Cacheable targets store logs and artifacts in the cache. In case of `deploy` those artifacts end up on some third-party cloud storage to which `Nx Cloud` has no access so it can't replay those artifacts.
 
 There are workarounds to the above mentioned problems:
+
 - Having runtime input that changes with every CIPE, which enables cacheability and distribution but is effectively useless outside of that CIPE
 - Using third-party storage like `Artifactory` to store built docker images and keep ID to built artifact in the output `dist` folder which both is a warrant for success and enables us to re-use the deployed artifacts.
 

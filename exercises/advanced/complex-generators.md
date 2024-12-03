@@ -1,4 +1,4 @@
-# `📖 Excercise:` Complex generators
+# `📖 Exercise:` Complex generators
 
 ## 📚&nbsp;&nbsp;**Learning outcomes**
 
