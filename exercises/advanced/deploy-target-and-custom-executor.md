@@ -292,7 +292,7 @@ export default async function runExecutor(
     execSync(`fly deploy`, { cwd });
   } else {
     // consult https://fly.io/docs/reference/regions/ to get best region for you
-    execSync(`fly launch --now --name=${options.flyAppName} --region=lax`, {
+    execSync(`fly launch --now --name=${options.flyAppName} --yes --copy-config --region=lax`, {
       cwd,
     });
   }
