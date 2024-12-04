@@ -64,6 +64,8 @@ SURGE_DOMAIN=https://<some-unique-url-123>.surge.sh
 
 Finally, update your "deploy" command, so that it loads the values from the ENV, using the `${ENV_VAR}` syntax.
 
+> ⚠️&nbsp;&nbsp;Make sure to add `.local.env` to your root `.gitignore` file. We don't want those files to be pushed to git.
+
 <details>
 <summary>🐳&nbsp;&nbsp;Hint</summary>
 
@@ -123,83 +125,13 @@ Consult the project configuration docs [here](https://nx.dev/reference/project-c
 
 </details>
 
-### 6. Login to Fly.io and store the token
-
-Similarly to Surge earlier, we need to login to Fly.io and store the token for later use:
-
-```bash
-# login first
-fly auth login
-# Get an authorization token so we don't have to login everytime
-fly auth token
-```
-
-Let's store the token in the `apps/movies-api/.local.env` environment file:
-
-```env
-FLY_API_TOKEN=<your-fly-token>
-```
-
-### 7. Prepare TOML file for deployment
-
-Create a new file `apps/movies-api/src/fly.toml`.
-Pick a unique app name to include in the fly.toml file.
-
-👉 This will determine the address where the API will be deployed to: `https://<your-app-name>.fly.dev`
-
-```toml
-app = "<your-unique-app-name>"
-kill_signal = "SIGINT"
-kill_timeout = 5
-processes = []
-
-[build]
-  builder = "paketobuildpacks/builder:base"
-  buildpacks = ["gcr.io/paketo-buildpacks/nodejs"]
-
-[env]
-  PORT = "8080"
-
-[experimental]
-  cmd = ["PORT=8080 node main.js"]
-
-[[services]]
-  http_checks = []
-  internal_port = 8080
-  processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
-
-[[services.ports]]
-  force_https = true
-  handlers = ["http"]
-  port = 80
-
-[[services.ports]]
-  handlers = ["tls", "http"]
-  port = 443
-
-[[services.tcp_checks]]
-  grace_period = "1s"
-  interval = "15s"
-  restart_limit = 0
-  timeout = "2s"
-```
-
-Fly will launch a pre-build node Docker image (or you could provide your own) and then run the command you specify to launch the server.
-When we want to deploy, we'll build our app to `dist/apps/movies-api` and we need to make sure that `fly.toml` makes it to the same folder. Fly will copy the bundled code to the remote server and run the node server via `cmd = ["PORT=8080 node main.js"]`
-
-### 8. Try the API deployment
+### 6. Try the API build
 
 If you run `nx build movies-api` and navigate to `cd dist/apps/movies-api && node main.js` it should work, because it has access to `node_modules`. But if you copy your built sources to some other folder on your file system and then try to `node main.js` in the folder that doesn't have access to `node_modules` - it will fail.
 
 > 💡 By default, dependencies of server projects are not bundled together, as opposed to your Angular apps. If curious why, you can [read more here](https://github.com/nestjs/nest/issues/1706#issuecomment-579248915).
 
-### 9. Include external dependencies and fly.toml in build
+### 7. Include external dependencies in build
 
 Let's fix the above - In `project.json`, under the **production** build options for the API (`targets -> build -> configurations -> production`)
 add this as an option:
@@ -226,18 +158,59 @@ add this as an option:
 
 </details>
 
-We also need to include our `fly.toml` in the dist folder, Update the `build` target (`targets -> build -> configurations -> production`) to include that file in the static assets:
+Let's build our application again. This time if we would copy the contents of our `dist`, install dependencies and run `node main.js` it would work.
+
+### 8. Login to Fly.io and prepare configuration for the deployment
+
+Similarly to Surge earlier, we need to login to Fly.io and store the token for later use:
+
+```bash
+# login first
+flyctl auth login
+```
+
+Inside your `dist/apps/movies-api` run a command:
+
+```bash
+flyctl launch --now --name=<name of your app> --yes --copy-config --region=lax
+```
+
+This will detect our NestJS project and configure Fly.io. It will genetate following files:
+- `fly.toml` where our Fly.io configuration is set
+- `Dockerfile` with our Docker image specs and 
+- `.dockerignore` with standard docker ignore config.
+
+Fly.io will also create the application and deploy it. If you go to `https://<your-app-name>.fly.dev` you will see your API running.
+Let's copy all three files to our `apps/movies-api/src`.
+
+While still in the dist folder run following command:
+
+```bash
+fly tokens create deploy -x 999999h
+```
+
+This will generate your unique auth token. Copy the output, including the FlyV1 and space at the beginning. Let's store the token in the `apps/movies-api/.local.env` environment file:
+
+```env
+FLY_API_TOKEN="<your-fly-token>"
+```
+
+As we want those three files above to be copied rather than re-generated every time, add the following to our `project.json` in `movies-api`  (`targets -> build -> configurations -> production`):
 
 ```json
 "assets": [
-    "apps/api/src/assets",
-    "apps/api/src/fly.toml"
+    "apps/movies-api/src/assets",
+    "apps/movies-api/src/fly.toml",
+    "apps/movies-api/src/Dcokerfile",
+    "apps/movies-api/src/.dockerignore",
 ],
 ```
 
+When we want to deploy, we'll build our app to `dist/apps/movies-api` and we need to make sure that `fly.toml` and `Dockerfile` make it to the same folder. Fly will copy the bundled code to the remote server and run the node server.
+
 Finally, make sure the `production` configuration is the default one by setting the `defaultConfiguration` property accordingly.
 
-### 10. Build an executor
+### 9. Build an executor
 
 We can now use our `internal-plugin` to create a custom executor. Use the `@nx/plugin:executor` generator to generate a `fly-deploy` executor:
 
@@ -249,7 +222,7 @@ The executor should have options for:
 When running, your executor should perform the following tasks, using the `fly` CLI:
 
 - list the current fly apps: `fly apps list`
-- if the app doesn't exist, launch it: `fly launch --now --name=<the name of your Fly App> --region=lax`
+- if the app doesn't exist, launch it: `fly launch --now --name=<the name of your Fly App> --region=lax --yes`
 - if the app exists, deploy it again: `fly deploy`
 
 Fly launch and deploy commands need to be run in the `dist` location of your app.
@@ -297,7 +270,7 @@ export interface FlyDeployExecutorSchema {
 
 </details>
 
-### 11. Add executor's logic
+### 10. Add executor's logic
 
 Implement the required fly steps using `execSync` to call the `fly` cli inside your `executor.ts` file:
 
@@ -314,7 +287,7 @@ const runExecutor: PromiseExecutor<FlyDeployExecutorSchema> = async (options) =>
       execSync(`flyctl deploy`, { cwd, stdio: 'inherit' });
     } else {
       // consult https://fly.io/docs/reference/regions/ to get best region for you
-      execSync(`fly launch --now --name=${options.flyAppName} --yes --copy-config --region=lax`, {
+      execSync(`flyctl launch --now --name=${options.flyAppName} --yes --copy-config --region=lax`, {
         cwd,
         stdio: 'inherit',
       });
@@ -373,7 +346,7 @@ npx nx deploy movies-api --prod
 
 Because of how we set up our `dependsOn` for the `deploy` target, Nx will know that it needs to run the production build of the api before then running the deploy!
 
-Go to `https://<your-app-name>.fly.dev/api/games` - it should return you a list of games.
+Go to `https://<your-app-name>.fly.dev/api/genre/list` - it should return you a list of genres.
 
 ### 13. Connect frontend and backend
 
@@ -405,8 +378,8 @@ Add environment file replacement in `apps/movies-app/project.json`:
           // Add this property:
           "fileReplacements": [
             {
-              "replace": "apps/store/src/environments/environment.ts",
-              "with": "apps/store/src/environments/environment.prod.ts"
+              "replace": "apps/movies-app/src/environments/environment.ts",
+              "with": "apps/movies-app/src/environments/environment.prod.ts"
             }
           ]
         }

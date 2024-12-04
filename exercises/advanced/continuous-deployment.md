@@ -59,7 +59,7 @@ Let's add those respectively to their `project.json` files.
 ```jsonc
 "deploy": {
   // ...
-  "inputs": [{ "runtime": ["fly --version" ] }]
+  "inputs": [{ "runtime": ["fly version" ] }]
   // ...
 }
 ```
@@ -68,12 +68,7 @@ Let's add those respectively to their `project.json` files.
 
 ### 2. Providing the environment variables to pipeline
 
-Remeber how we created those `.local.env.` files? These unfortunately stay on your machine and are not pushed to CI, so we need to feed our pipeline with those values.
-
-1. Go to your GitHub workshop repo
-2. Click on **"Settings"** at the top
-3. Then **"Secrets"** on the left menu bar
-4. Add values for all the variables we've been keeping in `.local.env` files
+Remeber how we created those `.local.env.` files? These unfortunately stay on your machine and are not pushed to CI, so we need to feed our pipeline with those values. Go to your GitHub repo and open `Settings`. Under `Secrets and variables`, select `Actions`, and then create a `New repository secret` for each of the variables we've been keeping in `.local.env` files. Make sure to use the same names and values.
 
 ![GitHub secrets](../assets/github-secrets.png)
 
@@ -81,8 +76,8 @@ Then back in our `ci.yaml` file, let's expose these secrets to the processes:
 
 ```yaml
 env:
-  SURGE_DOMAIN_STORE: ${{ secrets.SURGE_DOMAIN_STORE }}
-  SURGE_DOMAIN_ADMIN_UI: ${{ secrets.SURGE_DOMAIN_ADMIN_UI }}
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  SURGE_DOMAIN: ${{ secrets.SURGE_DOMAIN }}
   SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
 ```
 
@@ -146,7 +141,7 @@ on:
   pull_request:
 
 env:
-  SURGE_DOMAIN_STORE: ${{ secrets.SURGE_DOMAIN_STORE }}
+  SURGE_DOMAIN: ${{ secrets.SURGE_DOMAIN }}
   SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
   FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
