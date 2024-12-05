@@ -15,3 +15,7 @@ exercises/advanced/deploy-target-and-custom-executor.md
 ```
 npx nx g @nx/workspace:run-commands deploy --project movies-app --command 'npx surge dist/apps/movies-app/browser <https://ng-be-2024-workshop-movies-app.surge.sh> --token <token>'
 ```
+
+### Step 8
+
+<https://yorick-ng-be-workshop-2024.fly.dev/api/genre/list>

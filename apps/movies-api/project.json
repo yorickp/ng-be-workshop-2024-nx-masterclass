@@ -33,6 +33,13 @@
       "defaultConfiguration": "production",
       "configurations": {
         "production": {
+          "assets": [
+            "apps/movies-api/src/assets",
+            "apps/movies-api/src/fly.toml",
+            "apps/movies-api/src/Dcokerfile",
+            "apps/movies-api/src/.dockerignore",
+            "apps/movies-api/.local.env"
+          ],
           "externalDependencies": [
             "@nestjs/microservices",
             "@nestjs/microservices/microservices-module",
