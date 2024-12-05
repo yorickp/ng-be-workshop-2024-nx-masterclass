@@ -8,7 +8,7 @@
   - How to invoke them
   - How to use one to simplify usages of other, more powerful generators
 
-## 🏋️‍♀️&nbsp;&nbsp;Steps:
+## 🏋️‍♀️&nbsp;&nbsp;Steps
 
 ### 1. Add @nx/plugin
 
@@ -44,6 +44,20 @@ Use the `@nx/plugin:generator` generator to generate a new generator called `uti
   <summary>🐳&nbsp;&nbsp;Hint: See list of plugins</summary>
 
 Run `npx nx list` to see the list of installed plugins. Then run `npx nx list @nx/plugin` to see what generators are available.
+
+```bash
+ NX   Local workspace plugins:
+
+@nx-workshop/internal-plugin (generators)
+
+
+ NX   Installed plugins:
+
+@angular-devkit/build-angular (executors)
+@angular/animations
+@angular/cli
+...
+```
 
 </details>
 
@@ -138,6 +152,7 @@ Let's add some functionality to the lib you just created:
 - Generate a new lib called `util-notifications` in the `api` directory using our new generator
 - In `libs/api/util-notifications/src/lib/api-util-notifications.ts`
 - Add:
+
   ```typescript
   export function sendNotification(clientId: string) {
     console.log('sending notification to client: ', clientId);
