@@ -45,6 +45,7 @@ export async function updateScopeSchemaGenerator(
   );
 
   // 3. Updating non-JSON files
+  // @todo: Update only the directory type instead of the whole schema.
   tree.write(
     'libs/internal-plugin/src/generators/util-lib/schema.d.ts',
     `export interface UtilLibGeneratorSchema {
