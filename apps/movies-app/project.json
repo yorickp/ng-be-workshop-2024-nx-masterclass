@@ -102,7 +102,7 @@
       "executor": "nx:run-commands",
       "outputs": [],
       "options": {
-        "command": "npx surge dist/apps/movies-app/browser https://ng-be-2024-workshop-movies-app.surge.sh --token 7311416f78824b8f297a567dd0530b88"
+        "command": "npx surge dist/apps/movies-app/browser ${SURGE_DOMAIN} --token ${SURGE_TOKEN}"
       }
     }
   }
