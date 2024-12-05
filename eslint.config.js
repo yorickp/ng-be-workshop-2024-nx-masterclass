@@ -43,6 +43,14 @@ module.exports = [
             {
               sourceTag: 'type:util',
               onlyDependOnLibsWithTags: ['type:util']
+            },
+            {
+              sourceTag: 'type:app',
+              onlyDependOnLibsWithTags: ['type:feature', 'type:data-access', 'type:ui', 'type:util']
+            },
+            {
+              sourceTag: 'type:e2e',
+              onlyDependOnLibsWithTags: ['type:feature', 'type:data-access', 'type:ui', 'type:util']
             }
           ],
         },

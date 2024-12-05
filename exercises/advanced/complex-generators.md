@@ -18,7 +18,7 @@ Generate another generator called `update-scope-schema`. Use it to set the `defa
 - update the generator schema such that no `name` property is required
 - Try it first before you head over to the solution
 </details>
-
+<br/>
 <details>
   <summary>🐳&nbsp;&nbsp;Solution</summary>
 
@@ -92,8 +92,6 @@ updateJson(
 ```
 
 </details>
-
-<br/>
 
 ⚠️ It's good practice to have your generator run your modified files through Prettier after modifying them. You might already have this, but just in case you removed it bring back the `formatFiles` async function at the end of your generator.
 
@@ -190,6 +188,17 @@ Create a new app and define a brand new scope for it. Run your generator and not
 ```shell
 nx generate app video-games --tags=scope:video-games
 ```
+
+Our `internal-plugin` doesn't have tags either. Let's add some:
+
+```jsonc
+{
+  // ...
+  "tags": ["type:util", "scope:internal"]
+}
+```
+
+Run generator again.
 
 </details>
 
