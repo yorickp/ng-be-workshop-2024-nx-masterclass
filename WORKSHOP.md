@@ -28,6 +28,14 @@ exercises/advanced/setup-ci-and-connect-nx-cloud.md
 
 exercises/advanced/caching-deep-dive.md
 
+// TODO: Potentially only partially executed
+
 ## Exercise 6
 
 exercises/advanced/continuous-deployment.md
+
+// TODO: Potentially only partially executed
+
+## Exercise 7
+
+exercises/advanced/nx-agents.md

@@ -49,10 +49,12 @@
             "cache-manager/package.json"
           ]
         }
-      }
+      },
+      "inputs": [{ "env": "MY_SECRET" }]
     },
     "deploy": {
       "executor": "@nx-workshop/internal-plugin:fly-deploy",
+      "inputs": [{ "runtime": "fly version" }],
       "outputs": [],
       "options": {
         "distLocation": "dist/apps/movies-api",

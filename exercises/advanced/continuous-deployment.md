@@ -6,7 +6,7 @@
 - Learn how to expose custom secrets on GitHub to your CD processes
 - Learn when to enable deployment caching and how to control it
 
-## 🏋️‍♀️&nbsp;&nbsp;Steps:
+## 🏋️‍♀️&nbsp;&nbsp;Steps
 
 ### 1. Optimizing inputs for deploy target
 
@@ -72,7 +72,7 @@ Remeber how we created those `.local.env.` files? These unfortunately stay on yo
 
 ![GitHub secrets](../assets/github-secrets.png)
 
-Then back in our `ci.yaml` file, let's expose these secrets to the processes:
+Then back in our `ci.yml` file, let's expose these secrets to the processes:
 
 ```yaml
 env:
