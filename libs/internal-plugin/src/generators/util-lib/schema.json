@@ -12,7 +12,29 @@
         "index": 0
       },
       "x-prompt": "What name would you like to use?"
+    },
+    "directory": {
+      "description": "",
+      "x-prompt": {
+        "message": "What directory would you like to get it generated in?",
+        "type": "string",
+        "enum": ["movies", "api", "shared"],
+        "items": [
+          {
+            "value": "movies",
+            "label": "movies"
+          },
+          {
+            "value": "api",
+            "label": "api"
+          },
+          {
+            "value": "shared",
+            "label": "shared"
+          }
+        ]
+      }
     }
   },
-  "required": ["name"]
+  "required": ["name", "directory"]
 }
