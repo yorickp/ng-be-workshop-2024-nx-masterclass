@@ -210,7 +210,7 @@ As we want those three files above to be copied rather than re-generated every t
 "assets": [
     "apps/movies-api/src/assets",
     "apps/movies-api/src/fly.toml",
-    "apps/movies-api/src/Dcokerfile",
+    "apps/movies-api/src/Dockerfile",
     "apps/movies-api/src/.dockerignore",
 ],
 ```

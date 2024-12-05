@@ -36,9 +36,8 @@
           "assets": [
             "apps/movies-api/src/assets",
             "apps/movies-api/src/fly.toml",
-            "apps/movies-api/src/Dcokerfile",
-            "apps/movies-api/src/.dockerignore",
-            "apps/movies-api/.local.env"
+            "apps/movies-api/src/Dockerfile",
+            "apps/movies-api/src/.dockerignore"
           ],
           "externalDependencies": [
             "@nestjs/microservices",
@@ -51,6 +50,17 @@
           ]
         }
       }
+    },
+    "deploy": {
+      "executor": "@nx-workshop/internal-plugin:fly-deploy",
+      "outputs": [],
+      "options": {
+        "distLocation": "dist/apps/movies-api",
+        "flyAppName": "yorick-ng-be-workshop-2024"
+      },
+      "dependsOn": [
+        { "target": "build", "projects": "self", "params": "forward" }
+      ]
     }
   }
 }
