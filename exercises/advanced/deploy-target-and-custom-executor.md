@@ -133,19 +133,27 @@ If you run `nx build movies-api` and navigate to `cd dist/apps/movies-api && nod
 
 ### 7. Include external dependencies in build
 
-Let's fix the above - In `project.json`, under the **production** build options for the API (`targets -> build -> configurations -> production`)
-add this as an option:
+Let's fix the above - In `project.json`, we need to add **production** build options for the API (`targets -> build -> configurations -> production`). Our `build` is inferred from `@nx/webpack` plugin so that entire section is missing:
 
-```json
-"externalDependencies": [
-    "@nestjs/microservices",
-    "@nestjs/microservices/microservices-module",
-    "@nestjs/websockets/socket-module",
-    "class-transformer",
-    "class-validator",
-    "cache-manager",
-    "cache-manager/package.json"
-],
+```jsonc
+"targets": {
+  // ...
+  "build": {
+    "configurations": {
+      "production": {
+        "externalDependencies": [
+          "@nestjs/microservices",
+          "@nestjs/microservices/microservices-module",
+          "@nestjs/websockets/socket-module",
+          "class-transformer",
+          "class-validator",
+          "cache-manager",
+          "cache-manager/package.json"
+        ],
+      }
+    }
+  }
+}
 ```
 
 <details>
