@@ -23,3 +23,11 @@ npx nx g @nx/workspace:run-commands deploy --project movies-app --command 'npx s
 ## Exercise 4
 
 exercises/advanced/setup-ci-and-connect-nx-cloud.md
+
+## Exercise 5
+
+exercises/advanced/caching-deep-dive.md
+
+## Exercise 6
+
+exercises/advanced/continuous-deployment.md

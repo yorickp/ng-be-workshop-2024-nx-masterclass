@@ -1,4 +1,3 @@
-import { sendNotification } from '@nx-workshop/util-notifications';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
@@ -16,8 +15,4 @@ import { AppShellComponent } from './app-shell/app-shell.component';
 })
 export class AppComponent {
   title = 'movies';
-
-  constructor() {
-    sendNotification('test');
-  }
 }
