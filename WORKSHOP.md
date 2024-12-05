@@ -19,3 +19,7 @@ npx nx g @nx/workspace:run-commands deploy --project movies-app --command 'npx s
 ### Step 8
 
 <https://yorick-ng-be-workshop-2024.fly.dev/api/genre/list>
+
+## Exercise 4
+
+exercises/advanced/setup-ci-and-connect-nx-cloud.md
