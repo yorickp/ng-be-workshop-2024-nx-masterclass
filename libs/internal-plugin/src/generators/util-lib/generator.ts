@@ -1,10 +1,4 @@
-import {
-  addProjectConfiguration,
-  formatFiles,
-  generateFiles,
-  Tree,
-} from '@nx/devkit';
-import * as path from 'path';
+import { formatFiles, Tree } from '@nx/devkit';
 import { UtilLibGeneratorSchema } from './schema';
 import { libraryGenerator } from '@nx/js';
 

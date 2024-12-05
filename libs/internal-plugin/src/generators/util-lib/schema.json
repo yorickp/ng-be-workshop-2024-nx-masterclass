@@ -18,21 +18,21 @@
       "x-prompt": {
         "message": "What directory would you like to get it generated in?",
         "type": "string",
-        "enum": ["movies", "api", "shared"],
         "items": [
-          {
-            "value": "movies",
-            "label": "movies"
-          },
           {
             "value": "api",
             "label": "api"
           },
           {
+            "value": "movies",
+            "label": "movies"
+          },
+          {
             "value": "shared",
             "label": "shared"
           }
-        ]
+        ],
+        "enum": ["api", "movies", "shared"]
       }
     }
   },
