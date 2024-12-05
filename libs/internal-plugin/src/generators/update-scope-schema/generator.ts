@@ -23,7 +23,7 @@ export async function updateScopeSchemaGenerator(
 
   const projects = getProjects(tree);
   const scopes = getScopes(projects);
-  console.log('scopes', scopes);
+  console.log('Scopes found:', scopes);
 
   updateJson(tree, 'nx.json', (json) => ({
     ...json,
